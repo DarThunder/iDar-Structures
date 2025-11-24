@@ -42,17 +42,17 @@ iDar-Structures is an efficient and modular data structures library, implemented
 
 ## Installation
 
-### Automatic Installation:
+### Recommended Installation (via [`iDar-Pacman`](https://github.com/DarThunder/iDar-Pacman)):
 
 ```lua
-wget run https://raw.githubusercontent.com/DarThunder/iDar-Structures/refs/heads/main/installer.lua
+pacman -S idar-structures
 ```
 
 ### Manual Installation:
 
 1. Download the files from the repository.
-2. Place them inside your computer folder at `/idar-st/`.
-3. Use `require("idar-st.module_name")` to load the structures.
+2. Place them inside your computer folder at `/iDar/Structures/src`.
+3. Use `require("iDar.Structures.src.module_name")` to load the structures.
 
 ## Usage
 
@@ -61,7 +61,7 @@ wget run https://raw.githubusercontent.com/DarThunder/iDar-Structures/refs/heads
 The B-Tree is ideal for storing large amounts of sorted data and performing fast searches in disk or memory.
 
 ```lua
-local BTree = require("idar-st.b_tree.init")
+local BTree = require("iDar.Structures.src.b_tree.init")
 
 -- Create an ascending tree with a maximum of 5 keys per node
 local tree = BTree.new_ascending(5)
@@ -91,7 +91,7 @@ tree:delete(42)
 Perfect for priority queues, pathfinding (A\*), or scheduled task management.
 
 ```lua
-local Heap = require("idar-st.heap.init")
+local Heap = require("iDar.Structures.src.heap.init")
 
 -- Create a Min-Heap (lowest value has priority)
 local pq = Heap.new_min()

@@ -1,4 +1,4 @@
-local binary_heap = require("idar-st.heap.binary_heap")
+local binary_heap = require("..iDar.Structures.src.heap.binary_heap")
 
 return {
     new_min = function(list, comp_func)

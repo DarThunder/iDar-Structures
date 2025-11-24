@@ -61,7 +61,7 @@ Returns an iterator function to traverse the tree in order.
 #### Example:
 
 ```lua
-local BTree = require("idar-st.b_tree.init")
+local BTree = require("iDar.Structures.src.b_tree.init")
 local tree = BTree.new_ascending(5)
 
 tree:insert(50)
@@ -129,7 +129,7 @@ Updates a value in the heap and rebalances it (bubbles up or heapifies down as n
 #### Example:
 
 ```lua
-local Heap = require("idar-st.heap.init")
+local Heap = require("iDar.Structures.src.heap.init")
 local tasks = Heap.new_min()
 
 -- Adding tasks with priority (lower number = higher priority)

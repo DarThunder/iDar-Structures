@@ -1,4 +1,4 @@
-local b_tree = require("idar-st.b_tree.b_tree")
+local b_tree = require("..iDar.Structures.src.b_tree.b_tree")
 
 return {
     new_ascending = function(max_keys, comp_func)

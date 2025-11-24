@@ -30,3 +30,17 @@
 #### Known Issues
 
 - The current implementation of the B-Tree deletion method (`tree:delete`) is still **recursive**. While it is functional and robust, caution is advised when deleting large portions of the tree in stack-limited contexts.
+
+### v0.1.1
+
+#### Added
+
+- **Package Manager Support:** Added the `manifest.lua` metadata file to enable installation and proper dependency resolution through **iDar-Pacman** (SATD Standard).
+
+#### Changed
+
+- **Module Paths:** Modified all internal `require` paths to align with the new absolute standard of the `iDar` ecosystem (example: `require("iDar.Structures.src.BTree.bTree")`).
+
+#### Removed
+
+- Legacy installer script (`installer.lua`).

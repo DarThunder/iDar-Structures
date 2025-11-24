@@ -1,4 +1,4 @@
-local b_tree_node = require("idar-st.b_tree.b_tree_node")
+local b_tree_node = require("..iDar.Structures.src.b_tree.b_tree_node")
 
 local b_tree = {}
 b_tree.__index = b_tree

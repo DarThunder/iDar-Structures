@@ -1,11 +1,17 @@
 return {
     directory = "Structures",
     files = {
-        "src/b_tree/b_tree_node.lua",
-        "src/b_tree/b_tree.lua",
-        "src/b_tree/init.lua",
-        "src/heap/binary_heap.lua",
-        "src/heap/init.lua"
+        ["src"] = {
+            ["b_tree"] = {
+                "b_tree_node.lua",
+                "b_tree.lua",
+                "init.lua"
+            },
+            ["heap"] = {
+                "binary_heap.lua",
+                "init.lua"
+            }
+        }
     },
     dependencies = nil
 }

@@ -44,3 +44,9 @@
 #### Removed
 
 - Legacy installer script (`installer.lua`).
+
+### v0.1.2
+
+#### Changed
+
+- Manifest updated for compatibility with iDar-Pacman Alpha v2

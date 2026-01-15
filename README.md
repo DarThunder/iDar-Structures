@@ -11,6 +11,7 @@ iDar-Structures is an efficient and modular data structures library, implemented
 
   - [B-Tree](#b-tree)
   - [Binary Heap](#binary-heap)
+  - [Queue](#queue)
 
 - [Performance Notes](#performance-notes)
 - [FAQ](#faq)
@@ -29,6 +30,11 @@ iDar-Structures is an efficient and modular data structures library, implemented
 
   - **Min-Heap and Max-Heap**: Fast constructors for common use cases.
   - **Key Updates**: Supports `change_key` and arbitrary removal.
+
+- **Queue**: High-performance FIFO (First-In-First-Out) buffer.
+
+  - **O(1) Operations**: Optimized `push` and `pop` mechanisms, significantly faster than Lua's native `table.remove` for large datasets.
+  - **Memory Safe**: Automatic reference clearing to prevent memory leaks in long-running processes.
 
 - **Lightweight**: No external dependencies, pure Lua.
 
@@ -110,6 +116,35 @@ local max_pq = Heap.new_max()
 max_pq:insert(10)
 max_pq:insert(100)
 print(max_pq:pop()) -- Output: 100
+```
+
+### Queue
+
+A strictly typed First-In-First-Out structure. Essential for buffering network packets, managing task pipelines, or Breadth-First Search (BFS) algorithms where order matters.
+
+```lua
+-- The module returns the constructor directly
+local Queue = require("iDar.Structures.src.queue.init")
+
+local q = Queue()
+
+-- Enqueue items (O(1))
+q:push("Packet_001")
+q:push("Packet_002")
+q:push("Packet_003")
+
+-- Check size
+print(q:count()) -- Output: 3
+
+-- Peek at the front without removing
+print(q:peek()) -- Output: Packet_001
+
+-- Dequeue items (O(1))
+print(q:pop()) -- Output: Packet_001
+print(q:pop()) -- Output: Packet_002
+
+-- Check if empty
+print(q:is_empty()) -- Output: false
 ```
 
 ## Performance Notes

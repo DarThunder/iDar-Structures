@@ -50,3 +50,21 @@
 #### Changed
 
 - Manifest updated for compatibility with iDar-Pacman Alpha v2
+
+## v0.1.3
+
+**"The Collections Update"**
+
+After extensive testing in high-throughput scenarios, we identified the need for strictly ordered data processing. This update introduces efficient linear data structures to complement our existing Heap implementation.
+
+### New Features
+
+- **Queue (FIFO):** Added a high-performance Queue implementation (`queue.lua`).
+  - _Performance:_ optimized for $O(1)$ push/pop operations, replacing the inefficient `table.remove` paradigm used in standard Lua scripts.
+  - _Use Case:_ Essential for upcoming networking layers and BFS pathfinding algorithms.
+
+### Improvements & Fixes
+
+- **Heap Constructor Robustness:** Refined the type checking logic in `init.lua`'s `new_min/new_max` factories.
+  - _Detail:_ Improved the evaluation of custom comparator functions to ensure they are correctly prioritized over default implementations during instantiation.
+- **Memory Management:** Queues automatically clear references to popped items to prevent memory leaks in long-running daemon processes.

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This wiki explains the functions available in `iDar-Structures`, a library designed to bring robust data structures (B-Trees and Heaps) to ComputerCraft: Tweaked. Because sometimes standard Lua tables just aren't enough to organize your chaotic inventory data.
+This wiki explains the functions available in `iDar-Structures`, a library designed to bring robust data structures (B-Trees, Heaps, and Queues) to ComputerCraft: Tweaked. Because sometimes standard Lua tables just aren't enough to organize your chaotic inventory data.
 
 ## Structures
 
@@ -72,6 +72,7 @@ tree:insert(90)
 for value in tree:iterator() do
     print(value) -- Output: 10, 50, 90
 end
+
 ```
 
 ## Binary Heap
@@ -83,48 +84,50 @@ A Binary Heap implementation (Priority Queue) optimized for quick access to the 
 Generic constructor for a heap.
 
 - **Parameters:**
-  - `list?`: (Optional) Initial table of elements to heapify.
-  - `comp_func?`: (Optional) Comparison function.
+- `list?`: (Optional) Initial table of elements to heapify.
+- `comp_func?`: (Optional) Comparison function.
+
 - **Returns:**
-  - `heap`: A new Heap instance.
+- `heap`: A new Heap instance.
 
 ### heap.new_min(list?) / heap.new_max(list?)
 
 Helper constructors for standard Min-Heaps or Max-Heaps.
 
 - **Parameters:**
-  - `list?`: (Optional) Initial table of elements.
+- `list?`: (Optional) Initial table of elements.
+
 - **Returns:**
-  - `heap`: A configured Min or Max Heap.
+- `heap`: A configured Min or Max Heap.
 
 ### heap:insert(node)
 
 Adds an element to the heap and bubbles it up to the correct position.
 
 - **Parameters:**
-  - `node`: The value to insert.
+- `node`: The value to insert.
 
 ### heap:pop()
 
 Removes and returns the top element (min or max depending on configuration).
 
 - **Returns:**
-  - `value`: The top element, or `nil` if empty.
+- `value`: The top element, or `nil` if empty.
 
 ### heap:remove(value)
 
 Removes an arbitrary value from anywhere in the heap and repairs the structure.
 
 - **Parameters:**
-  - `value`: The value to remove.
+- `value`: The value to remove.
 
 ### heap:change_key(old_value, new_value)
 
 Updates a value in the heap and rebalances it (bubbles up or heapifies down as needed).
 
 - **Parameters:**
-  - `old_value`: The current value to change.
-  - `new_value`: The new value.
+- `old_value`: The current value to change.
+- `new_value`: The new value.
 
 #### Example:
 
@@ -137,15 +140,75 @@ tasks:insert(10) -- Low priority
 tasks:insert(1)  -- High priority
 
 print(tasks:pop()) -- Output: 1 (High priority)
+
+```
+
+## Queue
+
+A high-performance **First-In-First-Out (FIFO)** buffer. Designed to replace Lua's inefficient `table.remove` for sequential processing.
+
+### Queue()
+
+Creates a new empty queue.
+
+- **Returns:**
+- `queue`: A new Queue instance.
+
+### queue:push(item)
+
+Adds an item to the end of the queue.
+
+- **Parameters:**
+- `item`: The data to store.
+
+### queue:pop()
+
+Removes and returns the item at the front of the queue.
+
+- **Returns:**
+- `item`: The next item, or `nil` if empty.
+
+### queue:peek()
+
+Returns the item at the front without removing it.
+
+- **Returns:**
+- `item`: The next item, or `nil` if empty.
+
+### queue:count()
+
+Returns the number of items currently in the queue.
+
+- **Returns:**
+- `count`: Number.
+
+#### Implementation Details:
+
+- **O(1) Complexity:** Unlike Lua's native `table.remove(t, 1)` which shifts all remaining elements (O(n)), this implementation uses moving pointers (`first` and `last`) to achieve constant time operations.
+- **Memory Safety:** Automatically nil-ifies popped indices to allow the Lua Garbage Collector to reclaim memory immediately.
+
+#### Example:
+
+```lua
+-- Note: The module returns the constructor directly
+local Queue = require("iDar.Structures.src.queue.init")
+local packet_buffer = Queue()
+
+packet_buffer:push("Header")
+packet_buffer:push("Body")
+
+print(packet_buffer:pop()) -- Output: Header
+
 ```
 
 ## Additional Notes
 
 - **B-Tree Performance:** The search function is iterative, which is cool for performance, but `delete` is currently recursive. It still handles 50k elements like a champ, but keep that in mind if you're planning to delete half the universe.
 - **Heap vs. Sort:** If you just need to sort a list once, use `table.sort`. If you need to constantly add items and always know which is the smallest/largest, use the **Heap**. It's much faster (`O(log n)`) than re-sorting a table every time.
+- **Queue vs. Table:** Stop using `table.insert` and `table.remove` for queues. It kills performance on large lists. Use the **Queue** class.
 - **Lua Versions:** Written in pure Lua 5.1, so it runs on basically any potato that supports ComputerCraft.
 
 ## Performance Considerations
 
 - **B-Tree Order:** For ComputerCraft, a `maxKeys` (order) between **5 and 10** usually gives the best balance between memory usage and search speed.
-- **Memory:** These structures use Lua tables heavily. While efficient, storing 100k+ complex objects might hit the CC memory limit (usually 1MB for standard computers).
+- **Memory:** These structures use Lua tables heavily. While efficient, storing 100k+ complex objects might hit the CC memory limit (usually 1MB for standard computers or something, idk dude I just do complex libraries cause it's fun lol).

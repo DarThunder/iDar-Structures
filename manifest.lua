@@ -10,6 +10,10 @@ return {
             ["heap"] = {
                 "binary_heap.lua",
                 "init.lua"
+            },
+            ["queue"] = {
+                "init.lua",
+                "queue.lua"
             }
         }
     },

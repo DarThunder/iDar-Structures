@@ -1,10 +1,10 @@
-local b_tree = require("..iDar.Structures.src.b_tree.b_tree")
+local b_tree = require("iDar.Structures.src.b_tree.b_tree")
 
 return {
     new_ascending = function(max_keys, comp_func)
-        return b_tree(type(comp_func) == "function" or function(a, b) return a < b end, max_keys)
+        return b_tree(type(comp_func) == "function" and comp_func or function(a, b) return a < b end, max_keys)
     end,
     new_descending = function(max_keys, comp_func)
-        return b_tree(type(comp_func) == "function" or function(a, b) return a > b end,max_keys)
+        return b_tree(type(comp_func) == "function" and comp_func or function(a, b) return a > b end,max_keys)
     end
 }

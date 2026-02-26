@@ -68,3 +68,15 @@ After extensive testing in high-throughput scenarios, we identified the need for
 - **Heap Constructor Robustness:** Refined the type checking logic in `init.lua`'s `new_min/new_max` factories.
   - _Detail:_ Improved the evaluation of custom comparator functions to ensure they are correctly prioritized over default implementations during instantiation.
 - **Memory Management:** Queues automatically clear references to popped items to prevent memory leaks in long-running daemon processes.
+
+## v0.1.4
+
+**"The Spatial Update"**
+
+Expanding our library beyond linear and sorted collections, this update introduces spatial partitioning capabilities. Perfect for procedural generation, flexible UI layouts, and managing 2D spaces.
+
+### New Features
+
+- **BSP Tree (Binary Space Partitioning):** Added a new BSP Tree implementation (`bsp_tree`).
+  - _Spatial Division:_ Nodes can be dynamically divided using the `split(direction, new_value, ratio)` method, fully supporting custom split directions and area ratios.
+  - _Memory-Efficient Traversal:_ Introduced the `leaves()` iterator. By leveraging Lua's `coroutine.wrap` and `coroutine.yield`, it traverses and yields leaf nodes on-demand. This ensures an efficient traversal with minimal memory footprint, completely avoiding the allocation of intermediate tables.

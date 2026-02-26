@@ -201,11 +201,72 @@ print(packet_buffer:pop()) -- Output: Header
 
 ```
 
+## BSP Tree
+
+A Binary Space Partitioning (BSP) tree implementation. It's particularly useful for procedural generation (like dungeon rooms), spatial partitioning, and flexible UI layouts.
+
+### bsp_tree(initial_value) / bsp_tree.new(initial_value)
+
+Creates a new BSP Tree with a single root node.
+
+- **Parameters:**
+  - `initial_value`: The initial data, table, or area to store in the root node.
+- **Returns:**
+  - `tree`: A new BSP tree instance containing a `root` node.
+
+### node:is_leaf()
+
+Checks if the current node is a leaf (meaning it hasn't been split and has no children).
+
+- **Returns:**
+  - `boolean`: `true` if it's a leaf, `false` otherwise.
+
+### node:split(direction, new_value, ratio)
+
+Divides a leaf node into two children (`left` and `right`). The current node becomes a "split" type and transfers its original value to the new `left` child.
+
+- **Parameters:**
+  - `direction`: (Optional) The split direction, typically `"vertical"` or `"horizontal"`. Defaults to `"vertical"`.
+  - `new_value`: The value to assign to the new `right` child.
+  - `ratio`: (Optional) A number representing the split ratio. Defaults to `0.5` (50%).
+- **Returns:**
+  - `success`: `true` if successfully split.
+  - `error_message`: If the node is already divided, it returns `false` and `"The node is already divided"`.
+
+### node:leaves()
+
+Returns a coroutine-based iterator to traverse all the leaf nodes (undivided areas) under the current node.
+
+- **Returns:**
+  - `iterator`: A function compatible with the generic `for` loop that yields leaf `bsp_node` objects.
+
+#### Example:
+
+```lua
+local bsp_tree = require("iDar.Structures.src.bsp_tree.init")
+
+-- Create the tree with a starting area
+local tree = bsp_tree("Main Room")
+
+-- Split the root (creates left and right children)
+-- The left child inherits "Main Room", the right child gets "Corridor"
+tree.root:split("vertical", "Corridor", 0.6)
+
+-- Split the left child further
+tree.root.left:split("horizontal", "Secret Stash", 0.3)
+
+-- Iterate through all the final leaves
+for leaf in tree.root:leaves() do
+    print("Leaf value: " .. leaf.value)
+end
+```
+
 ## Additional Notes
 
 - **B-Tree Performance:** The search function is iterative, which is cool for performance, but `delete` is currently recursive. It still handles 50k elements like a champ, but keep that in mind if you're planning to delete half the universe.
 - **Heap vs. Sort:** If you just need to sort a list once, use `table.sort`. If you need to constantly add items and always know which is the smallest/largest, use the **Heap**. It's much faster (`O(log n)`) than re-sorting a table every time.
 - **Queue vs. Table:** Stop using `table.insert` and `table.remove` for queues. It kills performance on large lists. Use the **Queue** class.
+- **BSP Tree Iteration:** The `leaves()` iterator uses Lua coroutines (`coroutine.wrap` and `coroutine.yield`). This allows for highly efficient, memory-friendly tree traversal. It yields nodes one by one on demand, completely avoiding the need to build and return large intermediate tables to store the leaf nodes.
 - **Lua Versions:** Written in pure Lua 5.1, so it runs on basically any potato that supports ComputerCraft.
 
 ## Performance Considerations

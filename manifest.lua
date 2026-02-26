@@ -7,6 +7,11 @@ return {
                 "b_tree.lua",
                 "init.lua"
             },
+            ["bsp_tree"] = {
+                "bsp_node.lua",
+                "bsp_tree.lua",
+                "init.lua"
+            },
             ["heap"] = {
                 "binary_heap.lua",
                 "init.lua"

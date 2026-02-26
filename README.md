@@ -8,10 +8,10 @@ iDar-Structures is an efficient and modular data structures library, implemented
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-
   - [B-Tree](#b-tree)
   - [Binary Heap](#binary-heap)
   - [Queue](#queue)
+  - [BSP Tree](#bsp-tree)
 
 - [Performance Notes](#performance-notes)
 - [FAQ](#faq)
@@ -21,20 +21,21 @@ iDar-Structures is an efficient and modular data structures library, implemented
 ## Features
 
 - **B-Tree**: A self-balancing search tree of order _m_.
-
   - **Iterative Search**: Optimized to avoid stack overflows and improve speed.
   - **Native Iterators**: Traverse the tree using `for x in tree:iterator()`.
   - **Custom Comparators**: Full flexibility to sort numbers, strings, or complex tables.
 
 - **Binary Heap**: Efficient priority queue implementation.
-
   - **Min-Heap and Max-Heap**: Fast constructors for common use cases.
   - **Key Updates**: Supports `change_key` and arbitrary removal.
 
 - **Queue**: High-performance FIFO (First-In-First-Out) buffer.
-
   - **O(1) Operations**: Optimized `push` and `pop` mechanisms, significantly faster than Lua's native `table.remove` for large datasets.
   - **Memory Safe**: Automatic reference clearing to prevent memory leaks in long-running processes.
+
+- **BSP Tree**: Binary Space Partitioning tree implementation.
+  - **Spatial Division**: Easily split nodes dynamically with custom directions and ratios.
+  - **Leaf Iterator**: Traverse all leaf nodes efficiently using Lua coroutines.
 
 - **Lightweight**: No external dependencies, pure Lua.
 
@@ -145,6 +146,29 @@ print(q:pop()) -- Output: Packet_002
 
 -- Check if empty
 print(q:is_empty()) -- Output: false
+```
+
+### BSP Tree
+
+The BSP (Binary Space Partitioning) Tree is excellent for procedural generation (like dungeon rooms), UI layouts, or spatial partitioning.
+
+```lua
+local bsp_tree = require("iDar.Structures.src.bsp_tree.init")
+
+-- Create a new tree with an initial value or layout area
+local tree = bsp_tree("Root Area")
+
+-- Split the root node vertically at 50%
+tree.root:split("vertical", "New Right Area", 0.5)
+
+-- Split the left child horizontally
+tree.root.left:split("horizontal", "New Bottom Area", 0.3)
+
+-- Iterate through all the leaves using the built-in coroutine iterator
+print("--- Leaf Nodes ---")
+for leaf in tree.root:leaves() do
+    print(leaf.value)
+end
 ```
 
 ## Performance Notes

@@ -54,4 +54,32 @@ function bsp_node:leaves()
     end)
 end
 
+function bsp_node:get_geometry()
+    if self:is_leaf() then
+        return self.value
+    end
+
+    local parent_geom = self.parent and self.parent:get_geometry() or self.value
+    if not parent_geom then return nil end
+
+    local ratio = self.split_ratio or 0.5
+    local gx, gy, gw, gh = parent_geom.x, parent_geom.y, parent_geom.w, parent_geom.h
+
+    if self.split_direction == "horizontal" then
+        local split_h = math.floor(gh * ratio)
+        if self == self.parent.left then
+            return {x = gx, y = gy, w = gw, h = split_h}
+        else
+            return {x = gx, y = gy + split_h, w = gw, h = gh - split_h}
+        end
+    else
+        local split_w = math.floor(gw * ratio)
+        if self == self.parent.left then
+            return {x = gx, y = gy, w = split_w, h = gh}
+        else
+            return {x = gx + split_w, y = gy, w = gw - split_w, h = gh}
+        end
+    end
+end
+
 return bsp_node

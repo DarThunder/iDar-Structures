@@ -240,24 +240,33 @@ Returns a coroutine-based iterator to traverse all the leaf nodes (undivided are
 - **Returns:**
   - `iterator`: A function compatible with the generic `for` loop that yields leaf `bsp_node` objects.
 
+### node:get_geometry()
+
+Dynamically calculates and returns the spatial dimensions of the node. It resolves the geometry recursively based on the parent's dimensions, the node's split ratio, and the split direction.
+
+- **Returns:**
+  - `geometry`: A table containing the calculated dimensions `{x, y, w, h}`, or `nil` if the geometry cannot be resolved.
+
 #### Example:
 
 ```lua
 local bsp_tree = require("iDar.Structures.src.bsp_tree.init")
 
--- Create the tree with a starting area
-local tree = bsp_tree("Main Room")
+-- Create the tree with a starting area (providing initial geometry in the value)
+local tree = bsp_tree({name = "Main Room", x = 0, y = 0, w = 100, h = 100})
 
 -- Split the root (creates left and right children)
--- The left child inherits "Main Room", the right child gets "Corridor"
-tree.root:split("vertical", "Corridor", 0.6)
+tree.root:split("vertical", {name = "Corridor"}, 0.6)
 
 -- Split the left child further
-tree.root.left:split("horizontal", "Secret Stash", 0.3)
+tree.root.left:split("horizontal", {name = "Secret Stash"}, 0.3)
 
--- Iterate through all the final leaves
+-- Iterate through all the final leaves and get their calculated geometry
 for leaf in tree.root:leaves() do
-    print("Leaf value: " .. leaf.value)
+    local geom = leaf:get_geometry()
+    if geom then
+        print(leaf.value.name .. " is at X:" .. geom.x .. " Y:" .. geom.y)
+    end
 end
 ```
 

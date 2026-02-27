@@ -80,3 +80,10 @@ Expanding our library beyond linear and sorted collections, this update introduc
 - **BSP Tree (Binary Space Partitioning):** Added a new BSP Tree implementation (`bsp_tree`).
   - _Spatial Division:_ Nodes can be dynamically divided using the `split(direction, new_value, ratio)` method, fully supporting custom split directions and area ratios.
   - _Memory-Efficient Traversal:_ Introduced the `leaves()` iterator. By leveraging Lua's `coroutine.wrap` and `coroutine.yield`, it traverses and yields leaf nodes on-demand. This ensures an efficient traversal with minimal memory footprint, completely avoiding the allocation of intermediate tables.
+
+## v0.1.5
+
+### New Features
+
+- **BSP Tree Enhancements:**
+  - _Dynamic Geometry:_ Added the `bsp_node:get_geometry()` method. This allows nodes to dynamically calculate and return their spatial dimensions (`{x, y, w, h}`) on the fly. It recursively resolves the geometry based on the parent's dimensions, the node's split ratio, and the split direction (horizontal or vertical).

@@ -87,3 +87,9 @@ Expanding our library beyond linear and sorted collections, this update introduc
 
 - **BSP Tree Enhancements:**
   - _Dynamic Geometry:_ Added the `bsp_node:get_geometry()` method. This allows nodes to dynamically calculate and return their spatial dimensions (`{x, y, w, h}`) on the fly. It recursively resolves the geometry based on the parent's dimensions, the node's split ratio, and the split direction (horizontal or vertical).
+
+## v0.1.6
+
+#### Changed
+
+- Manifest updated for compatibility with SATD V2.6

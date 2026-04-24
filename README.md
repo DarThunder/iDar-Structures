@@ -68,7 +68,7 @@ pacman -S idar-structures
 The B-Tree is ideal for storing large amounts of sorted data and performing fast searches in disk or memory.
 
 ```lua
-local BTree = require("iDar.Structures.src.b_tree.init")
+local BTree = require("Structures.b_tree.init")
 
 -- Create an ascending tree with a maximum of 5 keys per node
 local tree = BTree.new_ascending(5)
@@ -98,7 +98,7 @@ tree:delete(42)
 Perfect for priority queues, pathfinding (A\*), or scheduled task management.
 
 ```lua
-local Heap = require("iDar.Structures.src.heap.init")
+local Heap = require("Structures.heap.init")
 
 -- Create a Min-Heap (lowest value has priority)
 local pq = Heap.new_min()
@@ -125,7 +125,7 @@ A strictly typed First-In-First-Out structure. Essential for buffering network p
 
 ```lua
 -- The module returns the constructor directly
-local Queue = require("iDar.Structures.src.queue.init")
+local Queue = require("Structures.queue.init")
 
 local q = Queue()
 
@@ -153,7 +153,7 @@ print(q:is_empty()) -- Output: false
 The BSP (Binary Space Partitioning) Tree is excellent for procedural generation (like dungeon rooms), UI layouts, or spatial partitioning.
 
 ```lua
-local bsp_tree = require("iDar.Structures.src.bsp_tree.init")
+local bsp_tree = require("Structures.bsp_tree.init")
 
 -- Create a new tree with an initial value or layout area
 local tree = bsp_tree("Root Area")

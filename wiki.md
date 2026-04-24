@@ -61,7 +61,7 @@ Returns an iterator function to traverse the tree in order.
 #### Example:
 
 ```lua
-local BTree = require("iDar.Structures.src.b_tree.init")
+local BTree = require("Structures.b_tree.init")
 local tree = BTree.new_ascending(5)
 
 tree:insert(50)
@@ -132,7 +132,7 @@ Updates a value in the heap and rebalances it (bubbles up or heapifies down as n
 #### Example:
 
 ```lua
-local Heap = require("iDar.Structures.src.heap.init")
+local Heap = require("Structures.heap.init")
 local tasks = Heap.new_min()
 
 -- Adding tasks with priority (lower number = higher priority)
@@ -191,7 +191,7 @@ Returns the number of items currently in the queue.
 
 ```lua
 -- Note: The module returns the constructor directly
-local Queue = require("iDar.Structures.src.queue.init")
+local Queue = require("Structures.queue.init")
 local packet_buffer = Queue()
 
 packet_buffer:push("Header")
@@ -250,7 +250,7 @@ Dynamically calculates and returns the spatial dimensions of the node. It resolv
 #### Example:
 
 ```lua
-local bsp_tree = require("iDar.Structures.src.bsp_tree.init")
+local bsp_tree = require("Structures.bsp_tree.init")
 
 -- Create the tree with a starting area (providing initial geometry in the value)
 local tree = bsp_tree({name = "Main Room", x = 0, y = 0, w = 100, h = 100})

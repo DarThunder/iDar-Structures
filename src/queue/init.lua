@@ -1,3 +1,3 @@
-local queue = require("iDar.Structures.src.queue.queue")
+local queue = require("Structures.queue.queue")
 
 return queue.new

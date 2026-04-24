@@ -1,4 +1,4 @@
-local bsp_node = require("..iDar.Structures.src.bsp_tree.bsp_node")
+local bsp_node = require("Structures.bsp_tree.bsp_node")
 
 local bsp_tree = {}
 bsp_tree.__index = bsp_tree
